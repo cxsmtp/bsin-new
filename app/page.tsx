@@ -1,5 +1,6 @@
 import ThemeToggle from "@/components/theme-toggle";
 import { posts, projects } from "@/app/lib/content";
+import Link from "next/link";
 
 export default function HomePage() {
   const latestPosts = posts.slice(0, 5);
@@ -9,17 +10,17 @@ export default function HomePage() {
       <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-14">
         <div className="flex min-h-[88svh] flex-col sm:min-h-[90svh]">
           <header className="flex items-center justify-between py-2">
-            <a href="/" className="text-sm font-normal tracking-[0.01em]">
+            <Link href="/" className="text-sm font-normal tracking-[0.01em]">
               Bhawani Singh
-            </a>
+            </Link>
 
             <nav className="flex items-center gap-7 text-sm text-neutral-600 dark:text-neutral-400">
-              <a href="/writing" className="hover:text-neutral-900 dark:hover:text-neutral-100">
+              <Link href="/writing" className="hover:text-neutral-900 dark:hover:text-neutral-100">
                 Writings
-              </a>
-              <a href="/projects" className="hover:text-neutral-900 dark:hover:text-neutral-100">
+              </Link>
+              <Link href="/projects" className="hover:text-neutral-900 dark:hover:text-neutral-100">
                 Projects
-              </a>
+              </Link>
               <ThemeToggle />
             </nav>
           </header>
@@ -47,17 +48,17 @@ export default function HomePage() {
         <section className="mb-24 mt-8 sm:mb-28 sm:mt-12">
           <div className="mb-8 flex items-center justify-between">
             <h2 className="text-xl font-semibold">Writings</h2>
-            <a
+            <Link
               href="/writing"
               className="text-sm text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100"
             >
               View all
-            </a>
+            </Link>
           </div>
 
           <div className="space-y-9">
             {latestPosts.map((post) => (
-              <a key={post.slug} href={`/writing/${post.slug}`} className="group block">
+              <Link key={post.slug} href={`/writing/${post.slug}`} className="group block">
                 <div className="flex flex-col gap-1.5">
                   <span className="text-xs text-neutral-400 dark:text-neutral-500">
                     {post.category}
@@ -69,7 +70,7 @@ export default function HomePage() {
                     {post.date}
                   </span>
                 </div>
-              </a>
+              </Link>
             ))}
           </div>
         </section>

@@ -1,4 +1,5 @@
 import { posts } from "@/app/lib/content";
+import Link from "next/link";
 
 export default function WritingPage() {
   return (
@@ -14,7 +15,7 @@ export default function WritingPage() {
 
         <section className="space-y-9">
           {posts.map((post) => (
-            <a key={post.slug} href={`/writing/${post.slug}`} className="group block">
+            <Link key={post.slug} href={`/writing/${post.slug}`} className="group block">
               <div className="flex flex-col gap-1.5">
                 <span className="text-xs text-neutral-400 dark:text-neutral-500">
                   {post.category}
@@ -26,7 +27,7 @@ export default function WritingPage() {
                   {post.date}
                 </span>
               </div>
-            </a>
+            </Link>
           ))}
         </section>
       </div>

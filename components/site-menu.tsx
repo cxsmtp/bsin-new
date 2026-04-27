@@ -1,6 +1,7 @@
 "use client";
 
 import { Github, Linkedin, Mail, X } from "lucide-react";
+import Link from "next/link";
 
 type SiteMenuProps = {
   isOpen: boolean;
@@ -46,27 +47,27 @@ export default function SiteMenu({ isOpen, onClose }: SiteMenuProps) {
       <div className="pt-10 sm:pt-12">
         <nav className="space-y-7 sm:space-y-8" aria-label="Main menu">
           {primaryItems.map((item) => (
-            <a
+            <Link
               key={item.label}
               href={item.href}
               onClick={onClose}
               className="block text-3xl font-medium tracking-tight text-neutral-900 transition hover:text-neutral-600 dark:text-neutral-100 dark:hover:text-neutral-300 sm:text-4xl"
             >
               {item.label}
-            </a>
+            </Link>
           ))}
         </nav>
 
         <nav className="mt-10 space-y-5 sm:mt-12 sm:space-y-6" aria-label="Secondary menu">
           {secondaryItems.map((item) => (
-            <a
+            <Link
               key={item.label}
               href={item.href}
               onClick={onClose}
               className="block text-lg text-neutral-500 transition hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100"
             >
               {item.label}
-            </a>
+            </Link>
           ))}
         </nav>
 

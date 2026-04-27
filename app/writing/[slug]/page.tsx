@@ -1,10 +1,15 @@
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, Heart, MessageCircle } from "lucide-react";
 import { getPostBySlug, posts } from "@/app/lib/content";
+import Link from "next/link";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
 };
+
+export function generateStaticParams() {
+  return posts.map((post) => ({ slug: post.slug }));
+}
 
 export default async function ArticlePage({ params }: PageProps) {
   const { slug } = await params;
@@ -21,13 +26,13 @@ export default async function ArticlePage({ params }: PageProps) {
     <main className="min-h-screen">
       <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6 sm:py-16">
         <header className="mb-12">
-          <a
+          <Link
             href="/writing"
             className="mb-10 inline-flex items-center gap-2 text-sm text-neutral-500 transition hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100"
           >
             <ArrowLeft className="h-4 w-4" />
             Back to Writing
-          </a>
+          </Link>
 
           <p className="mb-4 text-xs font-normal tracking-[0.08em] text-neutral-400 dark:text-neutral-500">
             {article.category}
@@ -162,22 +167,22 @@ export default async function ArticlePage({ params }: PageProps) {
         </section>
 
         <footer className="mt-20 flex items-center justify-between border-t border-neutral-200 pt-10 dark:border-neutral-800">
-          <a
+          <Link
             href="/writing"
             className="inline-flex items-center gap-2 text-sm text-neutral-500 transition hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100"
           >
             <ArrowLeft className="h-4 w-4" />
             Back to Writing
-          </a>
+          </Link>
 
           {nextArticle ? (
-            <a
+            <Link
               href={`/writing/${nextArticle.slug}`}
               className="inline-flex items-center gap-2 text-sm text-neutral-500 transition hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100"
             >
               Next article
               <ArrowRight className="h-4 w-4" />
-            </a>
+            </Link>
           ) : null}
         </footer>
       </div>
