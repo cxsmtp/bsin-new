@@ -1,10 +1,15 @@
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, Heart, MessageCircle } from "lucide-react";
 import { getPostBySlug, posts } from "@/app/lib/content";
+import Link from "next/link";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
 };
+
+export function generateStaticParams() {
+  return posts.map((post) => ({ slug: post.slug }));
+}
 
 export default async function ArticlePage({ params }: PageProps) {
   const { slug } = await params;
@@ -19,35 +24,35 @@ export default async function ArticlePage({ params }: PageProps) {
 
   return (
     <main className="min-h-screen">
-      <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-14">
-        <header className="mb-8">
-          <a
+      <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6 sm:py-16">
+        <header className="mb-12">
+          <Link
             href="/writing"
-            className="mb-8 inline-flex items-center gap-2 text-sm text-neutral-500 transition hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100"
+            className="mb-10 inline-flex items-center gap-2 text-sm text-neutral-500 transition hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100"
           >
             <ArrowLeft className="h-4 w-4" />
             Back to Writing
-          </a>
+          </Link>
 
-          <p className="mb-2 text-sm font-medium tracking-wide text-neutral-500 dark:text-neutral-400">
+          <p className="mb-4 text-xs font-normal tracking-[0.08em] text-neutral-400 dark:text-neutral-500">
             {article.category}
           </p>
 
-          <h1 className="max-w-2xl text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">
+          <h1 className="max-w-2xl text-4xl font-semibold leading-tight tracking-tight sm:text-[3.25rem]">
             {article.title}
           </h1>
 
-          <p className="mt-3 text-sm text-neutral-500 dark:text-neutral-400">{article.date}</p>
+          <p className="mt-5 text-sm text-neutral-500 dark:text-neutral-400">{article.date}</p>
 
           {article.excerpt ? (
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-neutral-700 dark:text-neutral-300">
+            <p className="mt-7 max-w-xl text-[19px] leading-9 text-neutral-700 dark:text-neutral-300">
               {article.excerpt}
             </p>
           ) : null}
         </header>
 
         {article.coverImage ? (
-          <figure className="mb-10 overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-800">
+          <figure className="mb-14 overflow-hidden rounded-lg">
             <img
               src={article.coverImage}
               alt={article.title}
@@ -62,7 +67,7 @@ export default async function ArticlePage({ params }: PageProps) {
               return (
                 <h2
                   key={index}
-                  className="mt-12 mb-4 text-2xl font-semibold tracking-tight"
+                  className="mb-5 mt-16 text-2xl font-semibold tracking-tight sm:mt-20"
                 >
                   {section.content}
                 </h2>
@@ -73,7 +78,7 @@ export default async function ArticlePage({ params }: PageProps) {
               return (
                 <p
                   key={index}
-                  className="mb-6 text-[18px] leading-8 text-neutral-800 dark:text-neutral-200"
+                  className="mb-8 text-[18px] leading-9 text-neutral-800 dark:text-neutral-200"
                 >
                   {section.content}
                 </p>
@@ -84,7 +89,7 @@ export default async function ArticlePage({ params }: PageProps) {
               return (
                 <blockquote
                   key={index}
-                  className="my-8 border-l-2 border-neutral-300 pl-5 text-xl font-medium italic text-neutral-800 dark:border-neutral-700 dark:text-neutral-200"
+                  className="my-12 border-l border-neutral-300 pl-5 text-[21px] font-normal italic leading-9 text-neutral-700 dark:border-neutral-700 dark:text-neutral-300"
                 >
                   {section.content}
                 </blockquote>
@@ -95,7 +100,7 @@ export default async function ArticlePage({ params }: PageProps) {
               return (
                 <div
                   key={index}
-                  className="my-8 rounded-2xl border border-neutral-200 bg-neutral-50 px-5 py-4 text-[17px] leading-7 text-neutral-800 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-200"
+                  className="my-10 border-l border-neutral-300 py-1 pl-5 text-[17px] leading-8 text-neutral-700 dark:border-neutral-700 dark:text-neutral-300"
                 >
                   {section.content}
                 </div>
@@ -106,7 +111,7 @@ export default async function ArticlePage({ params }: PageProps) {
           })}
         </article>
 
-        <section className="mt-14 border-t border-neutral-200 pt-8 dark:border-neutral-800">
+        <section className="mt-20 border-t border-neutral-200 pt-10 dark:border-neutral-800">
           <div className="flex items-center gap-3">
             <button
               type="button"
@@ -118,7 +123,7 @@ export default async function ArticlePage({ params }: PageProps) {
           </div>
         </section>
 
-        <section className="mt-10 border-t border-neutral-200 pt-8 dark:border-neutral-800">
+        <section className="mt-12 border-t border-neutral-200 pt-10 dark:border-neutral-800">
           <div className="mb-6 flex items-center gap-2">
             <MessageCircle className="h-4 w-4 text-neutral-500 dark:text-neutral-400" />
             <h3 className="text-lg font-semibold">Comments</h3>
@@ -128,16 +133,16 @@ export default async function ArticlePage({ params }: PageProps) {
             Comments are reviewed before they appear publicly.
           </p>
 
-          <form className="mb-10 space-y-4">
+          <form className="mb-12 space-y-4">
             <input
               type="text"
               placeholder="Your name"
-              className="w-full rounded-xl border border-neutral-200 bg-transparent px-4 py-3 text-sm outline-none transition focus:border-neutral-400 dark:border-neutral-800 dark:focus:border-neutral-600"
+              className="w-full rounded-md border border-neutral-200 bg-transparent px-4 py-3 text-sm outline-none transition focus:border-neutral-400 dark:border-neutral-800 dark:focus:border-neutral-600"
             />
             <textarea
               placeholder="Share your thoughts"
               rows={5}
-              className="w-full rounded-xl border border-neutral-200 bg-transparent px-4 py-3 text-sm outline-none transition focus:border-neutral-400 dark:border-neutral-800 dark:focus:border-neutral-600"
+              className="w-full rounded-md border border-neutral-200 bg-transparent px-4 py-3 text-sm outline-none transition focus:border-neutral-400 dark:border-neutral-800 dark:focus:border-neutral-600"
             />
             <button
               type="submit"
@@ -147,8 +152,8 @@ export default async function ArticlePage({ params }: PageProps) {
             </button>
           </form>
 
-          <div className="space-y-6">
-            <div className="rounded-2xl border border-neutral-200 px-5 py-4 dark:border-neutral-800">
+          <div className="space-y-7">
+            <div className="border-l border-neutral-300 pl-4 dark:border-neutral-700">
               <div className="mb-2 flex items-center justify-between gap-3">
                 <p className="text-sm font-medium">Amit</p>
                 <p className="text-xs text-neutral-500 dark:text-neutral-400">2 days ago</p>
@@ -161,23 +166,23 @@ export default async function ArticlePage({ params }: PageProps) {
           </div>
         </section>
 
-        <footer className="mt-14 flex items-center justify-between border-t border-neutral-200 pt-8 dark:border-neutral-800">
-          <a
+        <footer className="mt-20 flex items-center justify-between border-t border-neutral-200 pt-10 dark:border-neutral-800">
+          <Link
             href="/writing"
             className="inline-flex items-center gap-2 text-sm text-neutral-500 transition hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100"
           >
             <ArrowLeft className="h-4 w-4" />
             Back to Writing
-          </a>
+          </Link>
 
           {nextArticle ? (
-            <a
+            <Link
               href={`/writing/${nextArticle.slug}`}
               className="inline-flex items-center gap-2 text-sm text-neutral-500 transition hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100"
             >
               Next article
               <ArrowRight className="h-4 w-4" />
-            </a>
+            </Link>
           ) : null}
         </footer>
       </div>
